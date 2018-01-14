@@ -1,5 +1,17 @@
 steps:
-
+- name: 'gcr.io/cloud-builders/git'
+  args: ['submodule', 'update', '--init']
+  volumes:
+  - name: 'vendor'
+    path: '/workspace/go/src/vendor'
+- name: 'gcr.io/cloud-builders/go:alpine'
+  args: ['build', '-o', '/workspace/bin/kubetest', 'trueanthem.com/kubetest']
+  env: ['GOPATH=/workspace/go']
+  volumes:
+  - name: 'build-volume'
+    path: '/workspace/bin'
+  - name: 'vendor'
+    path: '/workspace/go/src/vendor'
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/$PROJECT_ID/kubetest:$BRANCH_NAME', '.']
   volumes:
