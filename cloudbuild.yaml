@@ -5,7 +5,7 @@ steps:
   - name: 'vendor'
     path: '/workspace/go/src/vendor'
 - name: 'gcr.io/cloud-builders/go:alpine'
-  args: ['build', '-o', '/workspace/bin/kubetest', 'trueanthem.com/kubetest']
+  args: ['build', '-o', '/workspace/bin/kubetest', 'main.go']
   env: ['GOPATH=/workspace/go']
   volumes:
   - name: 'build-volume'
