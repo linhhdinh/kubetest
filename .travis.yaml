@@ -1,0 +1,17 @@
+---
+# Use Go for the primary build tooling.
+language: go
+go:
+  - 1.9.2
+
+# Provide access to private git repositories.
+before_install:
+  - cp .netrc ~
+  - chmod 600 .netrc
+
+# Enable building and pushing the docker image.
+sudo: required
+services:
+  - docker
+after_success:
+  - ./dockerbuild.sh
